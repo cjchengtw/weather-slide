@@ -1,49 +1,302 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+	<title>Campus Weather Service</title>
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/wx.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h1>Campus Weather Service</h1>
+				<h2>校園氣象站服務</h2>
+			</section>
+			<section>
+				<h1>Summary</h1>
+				<ul class="fragment">
+					<li>使用
+						<em>樹莓派</em> 及
+						<em>Arduino</em> 兩種裝置在校園中感測區域性氣象資訊，上傳到
+						<em>資料庫</em>存放</li>
+					<li>自行架設網頁伺服器，網站搭配圖表呈現觀測數據，提供
+						<em>API</em> 供使用者存取，建立起
+						<em>主從架構式(Client-Server)</em> 的校園氣象站服務</li>
+				</ul>
+			</section>
+			<section>
+				<h2 id="system-architecture">System Architecture</h2>
+				<p>
+					<img src="https://i.imgur.com/rE9dXmu.png" alt="">
+				</p>
+			</section>
+			<section>
+				<h2 id="system-architecture1">System Architecture</h2>
+				<ul class="fragment">
+					<li>透過主從分工，各設備各司其職，以達到最大效益</li>
+					<li>
+						<em>硬體層</em>單純由
+						<em>MCU</em> 與韌體控制</li>
+					<li>
+						<em>驅動層</em>由
+						<em>Raspberry Pi</em> 用 USB 通訊</li>
+					<li>系統層
+						<em>紀錄端</em>在 Raspberry Pi 上</li>
+					<li>系統層
+						<em>伺服端</em>在 HTTP Server 上</li>
+					<li>應用層為
+						<em>用戶端</em>網頁與 APP</li>
+				</ul>
+			</section>
+			<section>
+				<h1 id="硬體">硬體設計</h1>
+				<h2 id="hardware">
+					<em>
+						<code>Hardware Development</code>
+					</em>
+				</h2>
+			</section>
+			<section>
+				<h2>Photo 1</h2>
+				<span class="fragment">
+					<img src="photos/product-1.png" alt="" srcset="">
+					<p>內部晶片組</p>
+				</span>
+			</section>
+			<section>
+				<h2>Photo 2</h2>
+				<span class="fragment">
+					<img src="photos/product-2.png" alt="" srcset="">
+					<p>盒子外觀</p>
+				</span>
+			</section>
+			<section>
+				<h2>感測資料（目前）</h2>
+
+				<ul class="fragment">
+					<li>溫度 -40℃~125℃
+						<em>±0.2℃</em>
+					</li>
+					<li>濕度 0~100%RH
+						<em>±2%</em>
+					</li>
+					<li>紫外線指數 0~11UV
+						<em>±1UV</em>
+					</li>
+					<li>雨水感測 True/False</li>
+					<li>光強度(相對) 分成
+						<em>1024</em> 個單位</li>
+				</ul>
+			</section>
+			<section>
+				<h2>感測資料（未來）</h2>
+
+				<ul class="fragment">
+					<li>PM2.5</li>
+					<li>PM1.0</li>
+					<li>PM10</li>
+					<li>大氣壓力</li>
+					<li>更精確的光強度(以
+						<em>燭光</em>為單位，而非相對數值)</li>
+				</ul>
+			</section>
+			<section>
+				<h2>特性</h2>
+				<ul>
+					<li class="fragment">系統穩定與優化</li>
+					<li class="fragment">基於
+						<em>openWRT</em> 的輕量化系統</li>
+					<li class="fragment">友善的使用者
+						<em>安裝腳本</em>
+					</li>
+					<li class="fragment">
+						<em>模組化</em>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h2>後端開發</h2>
+				<h2>
+					<em>Backend Development</em>
+				</h2>
+			</section>
+			<section>
+				<p>語言？</p>
+				<h3 class="fragment">
+					<em>Python</em>
+				</h3>
+				<p>Framwork?</p>
+				<h3 class="fragment">
+					<em>Django</em>
+				</h3>
+			</section>
+			<section>
+				<h2>Construction</h2>
+				<p class="fragment">
+					<em>模型 Model</em>
+				</p>
+				<p class="fragment">
+					<em>視圖 View</em>
+				</p>
+				<p class="fragment">
+					<em>模板 Template</em>
+				</p>
+				<p class="fragment">
+					<em>路由 Router</em>
+				</p>
+			</section>
+			<section>
+				<h2>模型 Model</h2>
+				<ul>
+					<li class="fragment">定義
+						<em>資料表</em>
+					</li>
+				</ul>
+				<hr>
+				<h2>視圖 View</h2>
+				<ul class="fragment">
+					<li>擷取資料</li>
+					<li>連結
+						<code>Model.py</code> 內的資料表</li>
+					<li>儲存資料進資料庫</li>
+					<li>
+						<em>資料視覺化</em>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h2>模板 Templates</h2>
+				<ul class="fragment">
+					<li>使用
+						<code>View.py</code> 內的資料
+						<em>呈現資料</em>視覺化</li>
+				</ul>
+				<hr>
+				<h2>路由 Router</h2>
+				<ul class="fragment">
+					<li>輸入網址列對應
+						<code>View.py</code> 中的函式</li>
+				</ul>
+			</section>
+			<section data-markdown>
+				<script type="text/template">
+						## 伺服器架構
+
+						HTTP Server(Web端) *Nginx*
+						<!-- .element: class="fragment" -->
+
+						WSGI Server(APP端) *gunicorn*
+						<!-- .element: class="fragment" -->
+
+						Process Control System(進程管理器) *Supervisor*
+						<!-- .element: class="fragment" -->
+					</script>
+			</section>
+			<section data-markdown>
+				<script type="text/template">
+						## Django RESTful API
+
+						*RESTful API Style*
+						<!-- .element: class="fragment" -->
+
+						### What's RESTful
+						<!-- .element: class="fragment" -->
+						Call functions with simply HTTP Method
+						<!-- .element: class="fragment" -->
+						- ***GET***: 讀取資源 (safe & idempotent)
+						- ***PUT***: 替換資源 (idempotent)
+						- ***DELETE***: 刪除資源 (idempotent)
+						- ***POST***: 新增資源；也作為萬用動詞，處理其它要求
+						- ***PATCH***: 更新資源部份內容
+					</script>
+			</section>
+			<section data-markdown>
+				<script type="text/template">
+					Problem: *Application may die*
+					<!-- .element: class="fragment" -->
+					## Build another system
+					<!-- .element: class="fragment" -->
+					Powered by
+					<!-- .element: class="fragment" -->
+					*Node.js*
+					<!-- .element: class="fragment" -->
+				</script>
+			</section>
+			<section data-markdown>
+				<script type="text/template">
+					### How it works
+
+					> - Express: API 框架
+					<!-- .element: class="fragment" -->
+					> - Redis: 資料庫系統
+					<!-- .element: class="fragment" -->
+
+					↓ magic combo
+					<!-- .element: class="fragment" -->
+					### Powerful, light API Server
+					<!-- .element: class="fragment" -->
+
+					*RESTful API* 
+					<!-- .element: class="fragment" -->
+					style and easy to 
+					<!-- .element: class="fragment" -->
+					*deploy*
+					<!-- .element: class="fragment" -->
+				</script>
+			</section>
 		</div>
+	</div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+			transition: 'slide',
+			dependencies: [{
+				src: 'plugin/markdown/marked.js'
+			},
+			{
+				src: 'plugin/markdown/markdown.js'
+			},
+			{
+				src: 'plugin/notes/notes.js',
+				async: true
+			},
+			{
+				src: 'plugin/highlight/highlight.js',
+				async: true,
+				callback: function () {
+					hljs.initHighlightingOnLoad();
+				}
+			}
+			]
+		});
+	</script>
+</body>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
 </html>
