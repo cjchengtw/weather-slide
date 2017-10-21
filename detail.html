@@ -29,7 +29,8 @@
 			<section>
 				<h1>Campus Weather Service</h1>
 				<h2>校園氣象站服務</h2>
-				<small>想瞭解技術細節可看：<a href="detail.html">技術細節版</a></small>
+				<p>技術細節版</p>
+				<small><a href="index.html">前往簡介版</a></small>
 			</section>
 			<section>
 				<h2>起源</h2>
@@ -101,7 +102,7 @@
 				</script>
 			</section>
 			<section>
-				<h2>Summary</h2>
+				<h1>Summary</h1>
 				<ul class="fragment">
 					<li>使用
 						<em>樹莓派 </em> 及
@@ -112,14 +113,30 @@
 						<em>主從架構式(Server-Client)</em> 的校園氣象站服務</li>
 				</ul>
 			</section>
-
 			<section>
 				<h2 id="system-architecture">System Architecture</h2>
 				<p>
 					<img src="https://i.imgur.com/rE9dXmu.png" alt="">
 				</p>
 			</section>
-
+			<section>
+				<h2 id="system-architecture1">System Architecture</h2>
+				<ul class="fragment">
+					<li>透過主從分工，各設備各司其職，以達到最大效益</li>
+					<li>
+						<em>硬體層</em>單純由
+						<em>MCU</em> 與韌體控制</li>
+					<li>
+						<em>驅動層</em>由
+						<em>Raspberry Pi</em> 用 USB 通訊</li>
+					<li>系統層
+						<em>紀錄端</em>在 Raspberry Pi 上</li>
+					<li>系統層
+						<em>伺服端</em>在 HTTP Server 上</li>
+					<li>應用層為
+						<em>用戶端</em>網頁與 APP</li>
+				</ul>
+			</section>
 			<section>
 				<h1 id="硬體">硬體設計</h1>
 				<h2 id="hardware">
@@ -256,7 +273,21 @@
 			</section>
 			<section data-markdown>
 				<script type="text/template">
-						## RESTful API
+						## 伺服器架構
+
+						HTTP Server(Web端) *Nginx*
+						<!-- .element: class="fragment" -->
+
+						WSGI Server(APP端) *gunicorn*
+						<!-- .element: class="fragment" -->
+
+						Process Control System(進程管理器) *Supervisor*
+						<!-- .element: class="fragment" -->
+					</script>
+			</section>
+			<section data-markdown>
+				<script type="text/template">
+						## Django RESTful API
 
 						*RESTful API Style*
 						<!-- .element: class="fragment" -->
@@ -310,18 +341,6 @@
 				</script>
 			</section>
 			<section>
-				<h2>Construction</h2>
-				<p class="fragment">
-					<em>模型 Model</em>
-				</p>
-				<p class="fragment">
-					<em>控制 Controller</em>
-				</p>
-				<p class="fragment">
-					<em>路由 Router</em>
-				</p>
-			</section>
-			<!-- <section>
 
 				<h2>Construction</h2>
 
@@ -340,7 +359,7 @@
 					<code>controller</code>
 				</li>
 
-			</section> -->
+			</section>
 			<section>
 				<h2>前端開發</h2>
 				<h2>
@@ -349,13 +368,21 @@
 			</section>
 			<section>
 				<h2>UI Design</h2>
-				<p>CSS Devolopment: <em class="fragment">SASS</em></p>
+				<p>CSS Devolpment: <em class="fragment">SASS</em></p>
 				<p>Media query: <em class="fragment">Breakpoint</em></p>
 				<p>Webicon font: <em class="fragment">IcoMoon</em></p>
 				<p>View Render: <em class="fragment">Vue.js</em></p>
 				
 				<h3 class="fragment"><p>+</p><em>Gulp</em></h3>
-				<h3 class="fragment">Auto build & <em>Livereload</em></h3>
+				<h3 class="fragment">Auto build & Livereload</h3>
+			</section>
+			<section>
+				<h2>TODO</h2>
+				<ul>
+					<li class="fragment">網頁架構改為 <em>SPA(Single Page Application)</em></li>
+					<li class="fragment">使用前端框架的網格，如 Bootstrap, Fondation</li>
+					<li class="fragment"><em>動態繪製圖表</em> by <span class="fragment"><em>d3.js, chart.js</em>, etc</span></li>
+				</ul>
 			</section>
 			<section>
 				<h2>Web UI</h2>
@@ -365,6 +392,13 @@
 			<section>
 				<h2>Web UI - Data</h2>
 				<img src="photos/website-2.png" alt="">
+			</section>
+			<section>
+				<h2>Cooperation Schools</h2>
+				<ul class="fragment">
+					<li>國立華僑中學</li>
+					<li>中山女高</li>
+				</ul>
 			</section>
 			<section>
 				<h2>Source code</h2>
