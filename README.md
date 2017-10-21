@@ -2,6 +2,8 @@
 
 專案項目：[https://github.com/oxygen-TW/Weather-Station](https://github.com/oxygen-TW/Weather-Station)
 
+[Watch Slides →](http://junyussh.github.io/weather-slide)
+
 ## Catlog
 
 - 起源
